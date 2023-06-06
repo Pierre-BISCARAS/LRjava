@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ray Tracing Web Interface</title>
+</head>
+<body>
+    <h1>Ray Tracing Web Interface</h1>
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="sceneFile">
+        <input type="submit" value="Render">
+    </form>
+    <?php
+    if (isset($_GET['image'])) {
+        echo '<h2>Rendered Image:</h2>';
+        echo '<img src="' . $_GET['image'] . '">';
+    }
+    ?>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Le nombre optimale de Thread est 21 pour notre config I7 10750H. 
+On ne peut pas automatiser le nombre de Thread optimale puisque chaque ordinateur est différent, niveau composants, et l'entretient
+
+
+6. Non 
+
+On a un gain d'une seconde

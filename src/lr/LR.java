@@ -1,36 +1,40 @@
 package lr;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import lr.format.simple.FormatSimple;
-import lr.format.wavefront.WavefrontFormat;
-import lr.format.wavefront.material.MaterialFormat;
 
-/**
- * Classe principale
- * 
- * auteurs : Christophe Renaud, Samuel Delepoulle, Franck Vandewiele
- */
-class LR {
-	static final int LARGEUR = 1980;
-	static final int HAUTEUR = 1080;
-	static final int NBRAYONS = 10;
-	static final int NIVEAU = 2;
+public class LR {
+    static final int LARGEUR = 1980;
+    static final int HAUTEUR = 1080;
+    static final int NBRAYONS = 100;
+    static final int NIVEAU = 2;
+    static final int NOMBRE_THREADS = 15; // Nombre de threads dans le pool
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+        Renderer r = new Renderer(LARGEUR, HAUTEUR);
+        Scene sc = new FormatSimple().charger("simple.txt");
+        sc.display();
+        r.setScene(sc);
+        r.setNiveau(NIVEAU);
 
-		Renderer r = new Renderer(LARGEUR, HAUTEUR);
-		Scene sc = new FormatSimple().charger("simple.txt");
-		sc.display();
-		r.setScene(sc);
-		r.setNiveau(NIVEAU);
+        // Création du pool de threads
+        ExecutorService threadPool = Executors.newFixedThreadPool(NOMBRE_THREADS);
 
-		// r.renderFullImage(NBRAYONS);
+        for (int i = 0; i < HAUTEUR; i++) {
+            ParalleleRenderer renderer = new ParalleleRenderer(NBRAYONS, i, i + 1, r);
+            threadPool.execute(renderer);
+        }
 
-		for (int i = 0; i < HAUTEUR; i++) {
-			r.renderLine(i, NBRAYONS);
-		}
-		Image image = r.getIm();
+        // Fermeture du pool de threads
+        threadPool.shutdown();
 
-		image.save("image" + NIVEAU, "png");
-		//new MaterialFormat().charger("chaise_plan.mtl");
-	}
+        // Attendre la fin de tous les threads
+        while (!threadPool.isTerminated()) {
+            // Attendre
+        }
+
+        Image image = r.getIm();
+        image.save("image" + NIVEAU, "png");
+    }
 }
