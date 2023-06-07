@@ -9,11 +9,13 @@ public class LR {
     static final int HAUTEUR = 1080;
     static final int NBRAYONS = 100;
     static final int NIVEAU = 2;
-    static final int NOMBRE_THREADS = 15; // Nombre de threads dans le pool
+    static final int NOMBRE_THREADS = 7; // Nombre de threads dans le pool
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
         Renderer r = new Renderer(LARGEUR, HAUTEUR);
-        Scene sc = new FormatSimple().charger("simple.txt");
+        Scene sc = new FormatSimple().charger("../src/web/uploads/simple.txt");
+
         sc.display();
         r.setScene(sc);
         r.setNiveau(NIVEAU);
@@ -36,5 +38,9 @@ public class LR {
 
         Image image = r.getIm();
         image.save("image" + NIVEAU, "png");
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        System.out.println("Temps d'exécution avec 4 threads : " + elapsedTime + " millisecondes");
     }
 }

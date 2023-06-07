@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ray Tracing Web Interface</title>
+    <title>Interface de lancer de rayons</title>
 </head>
 <body>
-    <h1>Ray Tracing Web Interface</h1>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-        <input type="file" name="sceneFile">
-        <input type="submit" value="Render">
+    <h1>Interface de lancer de rayons</h1>
+    <form action="upload.php" method="POST" enctype="multipart/form-data">
+        <label for="scene">Sélectionnez le fichier de scène :</label>
+        <input type="file" name="scene" id="scene" required>
+        <br>
+        <input type="submit" value="Calculer et afficher l'image">
     </form>
-    <?php
-    if (isset($_GET['image'])) {
-        echo '<h2>Rendered Image:</h2>';
-        echo '<img src="' . $_GET['image'] . '">';
-    }
-    ?>
 </body>
 </html>

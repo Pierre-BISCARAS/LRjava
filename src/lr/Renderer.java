@@ -2,6 +2,8 @@ package lr;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import lr.format.simple.FormatSimple;
+
 /**
  * Classe qui représente un calcul d'illumination à partir d'une scene et d'une
  * grille de pixels
@@ -169,5 +171,6 @@ public class Renderer {
 		return im;
 		
 	}
+	
 
 }
