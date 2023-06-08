@@ -7,9 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['scene'])) {
     // Déplace le fichier de scène vers le dossier d'upload
     if (move_uploaded_file($_FILES['scene']['tmp_name'], $sceneFile)) {
         // Exécute le lancer de rayons
-        echo getcwd();
         chdir('../../bin');
-        echo getcwd();
         exec('cp ../src/lr/simple.txt .');
         exec('java lr.LR');
         exec('cp image2.png ../src/web/uploads');

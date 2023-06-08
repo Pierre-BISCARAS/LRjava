@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  lrjava:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lrjava
+    image: rtxapp
+    ports:
+      - '8080:80'
+

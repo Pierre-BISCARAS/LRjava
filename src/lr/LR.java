@@ -12,7 +12,10 @@ public class LR {
     static final int NOMBRE_THREADS = 7; // Nombre de threads dans le pool
 
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
+        /*
+         * Méthode principale qui lance le calcul d'illumination d'une scène et qui enregistre l'image
+         */
+
         Renderer r = new Renderer(LARGEUR, HAUTEUR);
         Scene sc = new FormatSimple().charger("../src/web/uploads/simple.txt");
 
@@ -23,6 +26,7 @@ public class LR {
         // Création du pool de threads
         ExecutorService threadPool = Executors.newFixedThreadPool(NOMBRE_THREADS);
 
+        // Lancement des threads pour calculer les lignes de l'image
         for (int i = 0; i < HAUTEUR; i++) {
             ParalleleRenderer renderer = new ParalleleRenderer(NBRAYONS, i, i + 1, r);
             threadPool.execute(renderer);
@@ -38,9 +42,5 @@ public class LR {
 
         Image image = r.getIm();
         image.save("image" + NIVEAU, "png");
-
-        long endTime = System.currentTimeMillis();
-        long elapsedTime = endTime - startTime;
-        System.out.println("Temps d'exécution avec 4 threads : " + elapsedTime + " millisecondes");
     }
 }
