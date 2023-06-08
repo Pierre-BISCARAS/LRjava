@@ -1,6 +1,5 @@
 package lr;
 
-
 public class ParalleleRenderer implements Runnable {
     /*
      * Classe qui représente un calcul d'illumination à partir d'une scene et d'une grille de pixels
@@ -10,6 +9,7 @@ public class ParalleleRenderer implements Runnable {
     private int max;
     private Renderer renderer;
 
+    // Constructeur 
     public ParalleleRenderer(int r, int min, int max, Renderer renderer ) {
         /*
          * Constructeur 
@@ -19,7 +19,8 @@ public class ParalleleRenderer implements Runnable {
         this.max = max;
         this.renderer = renderer;
     }
-
+    
+    // Méthode exécutée par le thread
     public void run() {
         /*
          * Méthode qui lance le calcul les lignes de l'image
@@ -29,10 +30,12 @@ public class ParalleleRenderer implements Runnable {
         }
     }
     
+    // Définition de la valeur minimale des lignes à rendre
     public void setMin(int min) {
         this.min = min;
     }
 
+    // Définition de la valeur maximale des lignes à rendre
     public void setMax(int max) {
         this.max = max;
     }
